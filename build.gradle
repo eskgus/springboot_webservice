@@ -29,5 +29,6 @@ repositories {  // 의존성들 받을 원격 저장소
 
 dependencies {  // 프로젝트 개발에 필요한 의존성 선언
     compile('org.springframework.boot:spring-boot-starter-web') // 버전 안 써야 springBootVersion 따라 감
+    compile('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
