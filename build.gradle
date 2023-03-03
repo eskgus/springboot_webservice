@@ -30,5 +30,7 @@ repositories {  // 의존성들 받을 원격 저장소
 dependencies {  // 프로젝트 개발에 필요한 의존성 선언
     compile('org.springframework.boot:spring-boot-starter-web') // 버전 안 써야 springBootVersion 따라 감
     compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')    // 스프링 부트용 spring data jpa 추상화 라이브러리
+    compile('com.h2database:h2')    // 별도의 설치 필요 x 프로젝트 의존성만으로 관리할 수 있는 인메모리 관계형 데이터베이스
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
