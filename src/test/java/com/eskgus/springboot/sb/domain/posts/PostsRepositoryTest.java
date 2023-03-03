@@ -20,7 +20,7 @@ public class PostsRepositoryTest {
 
     @After  // 단위 테스트 끝날 때마다 수행되는 메서드 지정 (테스트 간 데이터 침범 막기 위해 사용)
     public void cleanup() {
-        postsRepository.deleteAll();
+        postsRepository.deleteAll();    // => 단위 테스트 끝날 때마다 posts에 써진 거 다 지우기
     }
 
     @Test
