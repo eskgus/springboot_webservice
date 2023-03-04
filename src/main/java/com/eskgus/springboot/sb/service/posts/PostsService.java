@@ -49,4 +49,12 @@ public class PostsService { // Service: 트랜잭션, 도메인 기능 간 순�
         return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        postsRepository.delete(posts);  // delete(): JpaRepository에 있는 메서드
+    }
+
 }
