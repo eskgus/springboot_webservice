@@ -13,4 +13,9 @@ public class IndexController {  // 화면(페이지) URL 매핑
         return "index";
     }
 
+    @GetMapping("/posts/save")
+    public String postsSave() {
+        return "posts-save";
+    }
+
 }
