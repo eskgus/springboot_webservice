@@ -1,5 +1,6 @@
 package com.eskgus.springboot.sb.web;
 
+import com.eskgus.springboot.sb.config.auth.LoginUser;
 import com.eskgus.springboot.sb.config.auth.dto.SessionUser;
 import com.eskgus.springboot.sb.service.posts.PostsService;
 import com.eskgus.springboot.sb.web.dto.PostsResponseDto;
@@ -9,17 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.HttpSession;
-
 @RequiredArgsConstructor
 @Controller
 public class IndexController {  // 화면(페이지) URL 매핑
 
     private final PostsService postsService;
-    private final HttpSession httpSession;
+
+    // @LoginUser 써서 필요 x
+    // private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         // addAttribute(String attributeName, Object attributeValue)
         // attributeValue(postsService.findAllDesc())를 attributeName("posts")으로 추가
         model.addAttribute("posts", postsService.findAllDesc());
@@ -27,7 +28,8 @@ public class IndexController {  // 화면(페이지) URL 매핑
         // CustomOAuth2UserService에서 httpSession.setAttribute("user", new SessionUser(user));로
         // 세션에 로그인된 사용자(SessionUser)의 attributes를 저장해놨음
         // 그 SessionUser의 attribute를 여기서 getAttribute() 써서 가져오는 거
-        SessionUser user = (SessionUser)httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser)httpSession.getAttribute("user");
+        // => @LoginUser 사용해서 가져옴 !
 
         if (user != null) {
             // 세션에 저장된 값이 있으면 model에 userName으로 추가
