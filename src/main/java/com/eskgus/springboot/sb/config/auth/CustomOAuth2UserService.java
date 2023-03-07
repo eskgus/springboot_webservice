@@ -41,7 +41,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes
                 .of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        User user = saveOrUadate(attributes);
+        User user = saveOrUpdate(attributes);
         // SessionUser: 세션에 사용자 정보 저장하기 위한 Dto 클래스
         httpSession.setAttribute("user", new SessionUser(user));
 
@@ -51,7 +51,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
     // (구글 사용자 정보 업데이트 됐을 때) 사용자의 이름이나 프로필 사진이 변경되면 User Entity에도 반영
-    private User saveOrUadate(OAuthAttributes attributes) {
+    private User saveOrUpdate(OAuthAttributes attributes) {
 
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
