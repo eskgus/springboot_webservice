@@ -1,9 +1,13 @@
 package com.eskgus.springboot.sb.web;
 
+import com.eskgus.springboot.sb.config.auth.SecurityConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -14,7 +18,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)    // 테스트 진행 시 JUnit에 내장된 실행자 말고 해당 클래스의 실행자(SpringRunner) 실행시킴
-@WebMvcTest(controllers = HelloController.class)    // Can be used when a test focuses only on Spring MVC components
+// @WebMvcTest: Can be used when a test focuses only on Spring MVC components
+@WebMvcTest(controllers = HelloController.class, excludeFilters = {
+        // SecurityConfig를 생성하려면 CustomOAuth2UserService가 필요
+        // -> @WebMvcTest는 @Repository, @Service, @Component를 스캔하지 x
+        // -> SecurityConfig는 스캔하지 않게 필터링 (excludeFilters)
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+})
 public class HelloControllerTest {
 
     // Marks a constructor, field, setter method, or config method as to be autowired
@@ -23,6 +33,7 @@ public class HelloControllerTest {
     private MockMvc mvc;   // Main entry point for server-side Spring MVC test support.
 
     @Test
+    @WithMockUser(roles="USER")
     public void return_hello() throws Exception {
         String hello = "hello";
 
@@ -34,6 +45,7 @@ public class HelloControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     public void return_helloDto() throws Exception {
         String name = "hello";
         int amount = 1000;
