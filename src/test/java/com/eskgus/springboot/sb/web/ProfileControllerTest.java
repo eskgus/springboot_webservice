@@ -23,7 +23,7 @@ public class ProfileControllerTest {    // SecurityConfig 설정 잘 됐는지 �
     private TestRestTemplate restTemplate;
 
     @Test
-    public void profile_인증_x_호출() throws Exception {
+    public void call_profile() throws Exception {   // profile은 인증 없이 호출된다
         String expected = "default";
 
         ResponseEntity<String> response = restTemplate.getForEntity("/profile", String.class);
