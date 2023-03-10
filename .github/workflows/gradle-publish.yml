@@ -1,6 +1,6 @@
 env:
   S3_BUCKET_NAME: springboot-ws-build
-  PFOJECT_NAME: springboot_webservice
+  PROJECT_NAME: springboot_webservice
 
 name: deploy
 
