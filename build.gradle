@@ -19,7 +19,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management' // 스프링 부트의 의존성들 관리해 주는 플러그인
 
 group 'com.eskgus.springboot'
-version '1.0-SNAPSHOT'
+version '1.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {  // 의존성들 받을 원격 저장소
